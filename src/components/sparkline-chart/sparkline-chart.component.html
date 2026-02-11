@@ -1,0 +1,27 @@
+<div #svgContainer class="relative cursor-crosshair w-full" (mousemove)="onMouseMove($event)" (mouseleave)="onMouseLeave()">
+  <svg [attr.viewBox]="'0 0 ' + width + ' ' + height" class="w-full h-auto" preserveAspectRatio="none">
+    <defs>
+      <linearGradient [id]="'gradient-' + isPositiveChange()" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" [attr.stop-color]="gradientColor()" stop-opacity="0.4"/>
+        <stop offset="100%" [attr.stop-color]="gradientColor()" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+    
+    <path [attr.d]="areaPathData()" [attr.fill]="'url(#gradient-' + isPositiveChange() + ')'" />
+    <path [attr.d]="pathData()" [attr.stroke]="gradientColor()" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    @if (tooltipVisible()) {
+      <line [attr.x1]="tooltipX()" [attr.y1]="0" [attr.x2]="tooltipX()" [attr.y2]="height" stroke="#9ca3af" stroke-width="1" stroke-dasharray="2 2"/>
+      <circle [attr.cx]="tooltipX()" [attr.cy]="tooltipY()" r="4" [attr.fill]="gradientColor()" stroke="rgb(15 23 42)" stroke-width="2" />
+    }
+  </svg>
+
+  @if (tooltipVisible()) {
+    <div class="absolute bg-gray-900/80 backdrop-blur-sm text-white text-xs font-mono rounded-md px-2 py-1 pointer-events-none shadow-lg" 
+         [style.left.px]="tooltipX()" 
+         [style.top.px]="tooltipY()"
+         style="transform: translate(-50%, -150%);">
+      {{ tooltipValue() | number:'1.2-5' }}
+    </div>
+  }
+</div>

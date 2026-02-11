@@ -1,0 +1,5 @@
+{
+  "name": "Plataforma de Monitoreo de Criptoactivos en Tiempo Real",
+  "description": "Una aplicación de panel de control que procesa un feed de precios de criptomonedas simulado y realiza cálculos estadísticos complejos utilizando Web Workers para evitar bloquear el hilo principal de la interfaz de usuario.",
+  "requestFramePermissions": []
+}

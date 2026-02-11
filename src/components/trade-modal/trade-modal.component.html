@@ -1,0 +1,77 @@
+<div class="fixed inset-0 bg-black/70 flex items-center justify-center p-4 z-50 animate-fade-in" (click)="closeModal()">
+  <div class="bg-gray-800 rounded-lg shadow-2xl w-full max-w-md relative animate-slide-up" (click)="$event.stopPropagation()">
+    
+    <!-- Header -->
+    <div class="flex items-center justify-between p-4 border-b border-gray-700">
+      <div class="flex items-center gap-3">
+        <img [src]="asset().iconUrl" [alt]="asset().name + ' icon'" class="w-8 h-8 rounded-full bg-gray-700 p-1">
+        <div>
+          <h3 class="text-lg font-bold text-white">Operar con {{ asset().name }}</h3>
+          <p class="text-sm text-gray-400">{{ asset().symbol }} / USD @ {{ asset().price | number:'1.2-5' }}</p>
+        </div>
+      </div>
+      <button (click)="closeModal()" class="text-gray-400 hover:text-white transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Body -->
+    <div class="p-6 space-y-6">
+      <!-- Trade Type Tabs -->
+      <div class="grid grid-cols-2 gap-2 rounded-md bg-gray-900 p-1">
+        <button (click)="setTradeType('buy')" 
+                [class]="tradeType() === 'buy' ? 'bg-green-600 text-white' : 'hover:bg-gray-700 text-gray-300'"
+                class="px-4 py-2 text-sm font-semibold rounded transition-colors">
+          Comprar
+        </button>
+        <button (click)="setTradeType('sell')" 
+                [class]="tradeType() === 'sell' ? 'bg-red-600 text-white' : 'hover:bg-gray-700 text-gray-300'"
+                class="px-4 py-2 text-sm font-semibold rounded transition-colors">
+          Vender
+        </button>
+      </div>
+
+      <!-- Input Fields -->
+      <div class="space-y-4">
+        <div>
+          <label for="usd-amount" class="text-sm font-medium text-gray-400">Cantidad (USD)</label>
+          <div class="relative mt-1">
+            <input id="usd-amount" type="number" 
+                   [value]="usdAmount()"
+                   (input)="onUsdAmountChange($event)"
+                   placeholder="0.00" 
+                   class="w-full bg-gray-900 border-gray-700 text-white rounded-md p-3 pr-12 text-lg focus:ring-yellow-500 focus:border-yellow-500">
+            <span class="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-500">USD</span>
+          </div>
+        </div>
+        <div>
+          <label [for]="asset().symbol + '-amount'" class="text-sm font-medium text-gray-400">Cantidad ({{ asset().symbol }})</label>
+          <div class="relative mt-1">
+            <input [id]="asset().symbol + '-amount'" type="number"
+                   [value]="assetAmount()"
+                   (input)="onAssetAmountChange($event)"
+                   placeholder="0.00000" 
+                   class="w-full bg-gray-900 border-gray-700 text-white rounded-md p-3 pr-16 text-lg focus:ring-yellow-500 focus:border-yellow-500">
+            <span class="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-500">{{ asset().symbol }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer / Actions -->
+    <div class="p-4 bg-gray-900/50 rounded-b-lg">
+      <button (click)="confirmTrade()"
+              [disabled]="!usdAmount() || usdAmount() <= 0"
+              class="w-full font-bold py-3 px-4 rounded-md text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              [class]="tradeType() === 'buy' ? 'bg-green-600 hover:bg-green-700 disabled:bg-green-800' : 'bg-red-600 hover:bg-red-700 disabled:bg-red-800'">
+        @if (tradeType() === 'buy') {
+          <span>Comprar {{ asset().symbol }}</span>
+        } @else {
+          <span>Vender {{ asset().symbol }}</span>
+        }
+      </button>
+    </div>
+  </div>
+</div>
