@@ -19,3 +19,6 @@ View your app in AI Studio: https://ai.studio/apps/drive/1FQlJ5QVGeM5bStfklI0x89
 3. Run the app:
    `npm run dev`
 # BlockMetrics
+
+Colaboradores:
+Enilson Castellano
