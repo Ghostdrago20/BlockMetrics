@@ -22,6 +22,8 @@ View your app in AI Studio: https://ai.studio/apps/drive/1FQlJ5QVGeM5bStfklI0x89
 
 Colaboradores y Equipo de Desarrollo:
 
-Jose Calvette
-Enilson Castellano
-Jorge Rudas
+*Jose Calvette
+
+*Enilson Castellano
+
+*Jorge Rudas
